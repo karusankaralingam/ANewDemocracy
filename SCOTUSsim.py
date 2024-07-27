@@ -9,8 +9,8 @@ justices = [
     {"Name": "Alito", "Ideology": "Conservative", "Age": 74},
     {"Name": "Gorsuch", "Ideology": "Conservative", "Age": 56},
     {"Name": "Kavanaugh", "Ideology": "Conservative", "Age": 59},
-    {"Name": "Barrett", "Ideology": "Conservative", "Age": 52},
-#    {"Name": "Barrett*", "Ideology": "Liberal", "Age": 52},
+#    {"Name": "Barrett", "Ideology": "Conservative", "Age": 52},
+    {"Name": "Barrett*", "Ideology": "Liberal", "Age": 52},
     {"Name": "Sotomayor", "Ideology": "Liberal", "Age": 70},
     {"Name": "Kagan", "Ideology": "Liberal", "Age": 64},
     {"Name": "Jackson", "Ideology": "Liberal", "Age": 53}
@@ -36,19 +36,19 @@ def simulate_appointments(election_results):
         n_terms += 1
         for justice in current_justices:
             justice["Age"] += 4
-            if justice["Age"] >= 76 and justice["Ideology"] == president_ideology[result]:
+            if justice["Age"] >= 81 and justice["Ideology"] == president_ideology[result]:
                 print(f"Term {term + 1}: President {result} appoints a new {justice['Ideology']} justice replacing {justice['Name']} who retired at age {justice['Age']}.")
                 justice["Age"] = 53
                 justice["Name"] = justice["Name"] + "-succ-" + president_ideology[result]
                 # Print the retirement and replacement event
-            if justice["Age"] >= 80 and justice["Ideology"] != president_ideology[result]:
+            if justice["Age"] >= 85 and justice["Ideology"] != president_ideology[result]:
                 court_compositions[ justice["Ideology"] ] -= 1
                 justice["Ideology"] = president_ideology[result]
                 print(f"Term {term + 1}: President {result} appoints a new {justice['Ideology']} justice replacing {justice['Name']} who died at age {justice['Age']}.")
                 justice["Age"] = 53
                 justice["Name"] = justice["Name"] + "-succ-" + president_ideology[result]
                 court_compositions[ president_ideology[result]] += 1
-            if justice["Age"] >= 80 and justice["Ideology"] == president_ideology[result]:
+            if justice["Age"] >= 85 and justice["Ideology"] == president_ideology[result]:
                 print("UNHANDLED")
         if (court_compositions['Liberal'] >= 5):
             liberal_leaning += 1
@@ -135,7 +135,7 @@ for i in dist:
     s = s+i
     print(s)
 x_labels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-plt.bar(x_labels, dist, color='orange', edgecolor='black')
+plt.bar(x_labels, dist, color='blue', edgecolor='black')
 
 # Adding title and labels
 plt.title('Histogram of # Liberal Justices')
